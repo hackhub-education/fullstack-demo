@@ -8,11 +8,22 @@
 		<h1 ng-hide="student.age > 25" ng-click="app.selectStudent(student)">{{ student.firstName }}</h1>
 	</div>
 
-	<div ng-show="app.selectedStudent"> 
-		<h2>Full Name: {{ app.studentData.fullName }} </h2>
-		<h3>Email: {{ app.studentData.email }}</h3>
-		<h3>Age: {{ app.studentData.age }}</h3>
+	<div ng-show="app.selectedStudent">
+		<h1>Student Detail</h1>
+		<h2>Full Name: {{ app.selectedStudent.fullName }} </h2>
+		<h3>Email: {{ app.selectedStudent.email }}</h3>
+		<h3>Age: {{ app.selectedStudent.age }}</h3>
 	</div>
+
+	<button ng-click="app.addNew()">{{ app.addNewButton }}</button>
+
+	<form novalidate ng-show="app.addMode">
+		<input type="text" name="firstName" placeholder="First Name" ng-model="app.newStudent.firstName">
+		<input type="text" name="lastName" placeholder="Last Name" ng-model="app.newStudent.lastName">
+		<input type="email" name="email" placeholder="Email" ng-model="app.newStudent.email">
+		<button ng-click="app.submitForm()">Submit</button>
+	</form>
+
 	<script src="/angular.js"></script>
 	<script src="/app.js"></script>
 </body>
