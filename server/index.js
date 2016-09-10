@@ -1,9 +1,11 @@
-var express = require('express');
+var app = require('express')();
 var mongoose = require('mongoose');
 var cors = require('cors');
 var bodyParser = require('body-parser');
+var http = require('http').Server(app);
+var io = require('socket.io')(http);
 
-mongoose.connect('mongodb://localhost/webdxd');
+mongoose.connect('mongodb://localhost/webdxd-chat');
 
 var studentSchema = {
 	firstName: String,
@@ -13,8 +15,6 @@ var studentSchema = {
 }
 
 var Student = mongoose.model('Student', studentSchema, 'student');
-
-var app = express();
 
 app.use(cors());
 app.use(bodyParser.json());
@@ -42,4 +42,10 @@ app.post('/new', function(req, res) {
 	});
 });
 
-app.listen(3000);
+io.on('connection', function(socket) {
+	console.log('a user connected');
+});
+
+app.listen(3000, function(){
+	console.log('listening on *:3000');
+});
